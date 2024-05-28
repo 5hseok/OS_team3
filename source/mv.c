@@ -9,6 +9,14 @@ int mv(DirectoryTree* currentDirectoryTree, char* cmd) {
         return ERROR;
     }
 
+    if (!strcmp(sourceName, "--help"))
+    {
+        printf("Usage: mv [OPTION]... SOURCE DIRECTORY\n");
+        printf("Rename SOURCE to DEST, or move SOURCE to DIRECTORY.\n");
+        printf("    --help    display this help and exit\n");
+        return SUCCESS;
+    }
+
     if (!destPath) {
         printf("mv: missing destination file operand after '%s'\n", sourceName);
         return ERROR;
