@@ -1,3 +1,5 @@
+#ifndef MAIN_H
+#define MAIN_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -232,12 +234,13 @@ void getToday(Date *date);
 void getWeekday(int type);
 void getMonth(int type);
 time_t timeSetting(const char* time_str);
-time_t ltime;
-struct tm *today;
+extern time_t *ltime;
+extern struct tm *today;
 
-DirectoryTree* linuxFileSystem;
-Stack* dirStack;
-UserList* userList;
-FILE* Directory;
-FILE* User;
-UserNode* currentUser;// 8진수를 2진수로 변환하는 함수
+extern DirectoryTree* linuxFileSystem;
+extern Stack* dirStack;
+extern UserList* userList;
+extern FILE* Directory;
+extern FILE* User;
+extern UserNode* currentUser;// 8진수를 2진수로 변환하는 함수
+#endif
