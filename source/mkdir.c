@@ -159,8 +159,7 @@ int Mkdir(DirectoryTree* currentDirectoryTree, char* cmd)
     char *str;
     int tmpMode = 775;
     int count = 0;
-
-    if (!cmd) {
+    if (!cmd || !strcmp(cmd, "")) {
         printf("mkdir: missing operand\n");
         printf("Try 'mkdir --help' for more information.\n");
         return -1;
