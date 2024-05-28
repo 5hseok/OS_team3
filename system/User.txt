@@ -1,3 +1,6 @@
-root 0 0 2024 5 1 27 19 12 9 /
-OSManager 1000 1000 2024 5 2 28 4 11 47 /home/OSManager
-OH 1001 1001 2024 5 0 26 18 51 30 /home/OH
+root 0 0 2024 5 2 28 15 8 31 /
+OSManager 1000 1000 2024 5 2 28 15 18 5 /home/OSManager
+oh 1001 1001 2024 5 2 28 15 41 59 /home/oh
+lim 1002 1002 2024 5 2 28 12 11 11 /home/lim
+kim 1003 1003 2024 5 2 28 11 47 5 /home/kim
+han 1004 1004 2024 5 2 28 21 9 51 /home/han
