@@ -44,7 +44,6 @@ void apply_relative_mode(DirectoryNode* currentNode, Permission* change_mod, con
         change_mod->permission[i] = currentNode->permission.permission[i];
     }
     for (int i = 0; i < len; i++) {
-        printf("case : %c\n", permissionInfoStr[i]);
         switch (permissionInfoStr[i]) {
             case 'u': user = 1; break;
             case 'g': group = 1; break;
