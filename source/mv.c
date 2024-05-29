@@ -44,6 +44,7 @@ int mv(DirectoryTree* currentDirectoryTree, char* cmd) {
         newFileName = lastSlash + 1;
         newParentNode = findNodeByPath(currentDirectoryTree, destPath);
         *lastSlash = '/';  // Restore the original string
+        if (!strcmp(newFileName, "")) newFileName = sourceNode->name;
     } else {
         // No slash means the destination is just a new name in the same directory
         DirectoryNode* tempNode = IsExistDir(currentDirectoryTree, destPath, 'd');
@@ -66,6 +67,7 @@ int mv(DirectoryTree* currentDirectoryTree, char* cmd) {
             }
         }
     }
+
 
     if (!newParentNode) {
         printf("mv: cannot move to '%s': No such file or directory\n", destPath);
