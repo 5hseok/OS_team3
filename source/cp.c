@@ -9,7 +9,13 @@ int cp(DirectoryTree* currentDirectoryTree, char* cmd) {
         printf("Try 'cp --help' for more information.\n");
         return ERROR;
     }
-
+    if (!strcmp(sourceName, "--help"))
+    {
+        printf("Usage: cp [OPTION] ... SOURCE DIRECTORY\n");
+        printf("Copy SOURCE to DEST.\n");
+        printf("    --help    display this help and exit\n");
+        return SUCCESS;
+    }
     if (!destPath) {
         printf("cp: missing destination file operand after '%s'\n", sourceName);
         return ERROR;
@@ -30,6 +36,9 @@ int cp(DirectoryTree* currentDirectoryTree, char* cmd) {
         newFileName = lastSlash + 1;
         newParentNode = findNodeByPath(currentDirectoryTree, destPath);
         *lastSlash = '/';  // Restore the original string
+        if (!strcmp(newFileName,"")){
+            newFileName = sourceNode->name;
+        }
     } else {
         DirectoryNode* tempNode = findNodeInTree(currentDirectoryTree, destPath);
         if (tempNode != NULL && tempNode->type == 'd') {
