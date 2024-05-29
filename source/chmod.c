@@ -1,4 +1,5 @@
 #include "../header/main.h"
+
 DirectoryNode* find_node(DirectoryTree* currentDirectoryTree, char* name)  //현재 위치에서의 노드를 찾음.
 {
 	DirectoryNode* temp = currentDirectoryTree->current->firstChild;	// current node에 저장되어 있는 디렉토리
@@ -35,7 +36,6 @@ void update_mode(Permission* change_mod) {
     change_mod->mode = mode;
 }
 
-
 void apply_relative_mode(DirectoryNode* currentNode, Permission* change_mod, const char* permissionInfoStr) {
     int len = strlen(permissionInfoStr);
     int op = 0; // 1 for '+', -1 for '-', 0 for '='
@@ -70,8 +70,8 @@ void apply_relative_mode(DirectoryNode* currentNode, Permission* change_mod, con
         }
     }
     
-    // Update the mode value after applying the changes
-    update_mode(change_mod);
+// Update the mode value after applying the changes
+update_mode(change_mod);
 }
 
 void apply_absolute_mode(Permission* change_mod, const char* permissionInfoStr) {
@@ -126,7 +126,7 @@ void ch_mod(DirectoryTree* currentDirectoryTree, char* permissionInfo, char* nod
     }
     if (userList->current->id.UID == temp->id.UID ||
         userList->current->id.GID == temp->id.GID ||
-        userList->current->name == "root") {
+        !strcmp(userList->current->name, "root")) {
         
         if (parse_permission_info(temp, permissionInfo, change_mod) == 0) {
             // Directory.txt에 현재 노드의 상태 기록
@@ -182,5 +182,8 @@ void ch_mod(DirectoryTree* currentDirectoryTree, char* permissionInfo, char* nod
         }
 
         free(change_mod);
+        }
+        else{
+            printf("chmod: changing permissions of '%s': Permission denied\n", temp->name);
         }
 }
