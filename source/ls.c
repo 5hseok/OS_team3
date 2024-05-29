@@ -146,9 +146,8 @@ void ls(DirectoryTree* currentDirectoryTree, char* option) {
         printf("      --help     display this help and exit\n");
     }
     else if (!strcmp(option, "-l")) {
-        int num = 0;
+        int num, show_num = 0;
         int maxLinks = 0, maxUser = 0, maxGroup = 0, maxSize = 0, maxDay = 0;
-        printf("total %d\n", directory_num);
 
         while (num < directory_num) {
             if (directory_list[num]->viewType == 's') {
@@ -166,13 +165,14 @@ void ls(DirectoryTree* currentDirectoryTree, char* option) {
 
                 int dayLen = snprintf(NULL, 0, "%d", directory_list[num]->date.day);
                 if (dayLen > maxDay) maxDay = dayLen;
+                show_num++;
             }
             num++;
         }
-
+        printf("total %d\n",show_num);
         num = 0;
         while (num < directory_num) {
-            if (directory_list[num]->type == 'd') {
+            if (directory_list[num]->type == 'd' && directory_list[num]->viewType == 's') {
                 printf("d");
                 chmod_print(directory_list[num]->permission.mode);
                 printf("%*d ", maxLinks, 2 + countChildren(directory_list[num]));
@@ -185,7 +185,7 @@ void ls(DirectoryTree* currentDirectoryTree, char* option) {
                 printf("%s\n", directory_list[num]->name);
                 DEFAULT;
             }
-            else if (directory_list[num]->type == '-') {
+            else if (directory_list[num]->type == '-'&& directory_list[num]->viewType == 's') {
                 printf("-");
                 chmod_print(directory_list[num]->permission.mode);
                 printf("%*d ", maxLinks, 1);
