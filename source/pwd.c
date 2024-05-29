@@ -75,6 +75,9 @@ int pwd(DirectoryTree *currentDirectory, Stack *dirStack, char *option) {
         printf("  Returns 0 unless an invalid option is given or the current directory\n");
         printf("  cannot be read.\n");
     }
+    else if (strchr(option, '-') == NULL){
+        printPath(currentDirectory, dirStack);
+    }
     else{
         printf("-bash: pwd: %.2s: invalid option\n", option);
         printf("pwd: usage: pwd [-LP]\n");
