@@ -207,7 +207,7 @@ void Start();
 //cp.c
 int cp(DirectoryTree *currentDirectoryTree, char *cmd);
 DirectoryNode* copyNode(DirectoryNode* source);
-
+DirectoryNode* copyNodeRecursive(DirectoryNode* source, DirectoryNode* parent);
 //more.c
 int getch(void); // 입력 버퍼 X, 문자 표시 X 입력 함수
 int more_line();

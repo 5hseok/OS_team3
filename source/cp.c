@@ -1,5 +1,69 @@
 #include "../header/main.h"
 
+DirectoryNode* copyNodeRecursive(DirectoryNode* source, DirectoryNode* parent) {
+    if (!source) {
+        return NULL;
+    }
+
+    DirectoryNode* newNode = (DirectoryNode*)malloc(sizeof(DirectoryNode));
+    if (!newNode) {
+        return NULL;
+    }
+
+    // 현재 노드 복사
+    strcpy(newNode->name, source->name);
+    newNode->type = source->type;
+    newNode->viewType = source->viewType;
+    newNode->SIZE = source->SIZE;
+    newNode->permission = source->permission;
+    newNode->id = source->id;
+    newNode->date = source->date;
+    newNode->parent = parent;
+    newNode->firstChild = NULL;
+    newNode->nextSibling = NULL;
+
+    // 자식 노드 복사
+    if (source->firstChild) {
+        newNode->firstChild = copyNodeRecursive(source->firstChild, newNode);
+    }
+
+    // 형제 노드 복사
+    if (source->nextSibling) {
+        newNode->nextSibling = copyNodeRecursive(source->nextSibling, parent);
+    }
+
+    return newNode;
+}
+
+DirectoryNode* copyNode(DirectoryNode* source) {
+    if (!source) {
+        return NULL;
+    }
+
+    DirectoryNode* newNode = (DirectoryNode*)malloc(sizeof(DirectoryNode));
+    if (!newNode) {
+        return NULL;
+    }
+
+    // 현재 노드 복사
+    strcpy(newNode->name, source->name);
+    newNode->type = source->type;
+    newNode->viewType = source->viewType;
+    newNode->SIZE = source->SIZE;
+    newNode->permission = source->permission;
+    newNode->id = source->id;
+    newNode->date = source->date;
+    newNode->parent = NULL;
+    newNode->firstChild = NULL;
+    newNode->nextSibling = NULL;
+
+    // 하위 노드들 복사
+    if (source->firstChild) {
+        newNode->firstChild = copyNodeRecursive(source->firstChild, newNode);
+    }
+
+    return newNode;
+}
 
 int cp(DirectoryTree* currentDirectoryTree, char* cmd) {
     char* sourceName = strtok(cmd, " ");
@@ -92,26 +156,7 @@ int cp(DirectoryTree* currentDirectoryTree, char* cmd) {
 
     copiedNode->nextSibling = newParentNode->firstChild;
     newParentNode->firstChild = copiedNode;
-
+    
     SaveDirectory(currentDirectoryTree, dirStack);
     return SUCCESS;
-}
-
-
-DirectoryNode* copyNode(DirectoryNode* source) {
-    DirectoryNode* newNode = (DirectoryNode*)malloc(sizeof(DirectoryNode));
-    if (!newNode) {
-        return NULL;
-    }
-    strcpy(newNode->name, source->name);
-    newNode->type = source->type;
-    newNode->viewType = source->viewType;
-    newNode->SIZE = source->SIZE;
-    newNode->permission = source->permission;
-    newNode->id = source->id;
-    newNode->date = source->date;
-    newNode->parent = NULL;
-    newNode->firstChild = NULL;
-    newNode->nextSibling = NULL;
-    return newNode;
 }
